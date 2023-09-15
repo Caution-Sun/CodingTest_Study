@@ -15,8 +15,6 @@ public class Q48 {
             int E = sc.nextInt();
 
             A = new ArrayList[V + 1];
-            visited = new boolean[V + 1];
-            check = new int[V + 1];
             IsEven = true;
 
             for(int j = 1; j <= V; j++)
@@ -31,8 +29,11 @@ public class Q48 {
             }
 
             for(int j = 1; j <= V; j++){
-                if(IsEven)
+                if(IsEven) {
+                    visited = new boolean[V + 1];
+                    check = new int[V + 1];
                     DFS(j);
+                }
                 else
                     break;
             }
