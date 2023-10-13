@@ -1,10 +1,7 @@
 import java.io.BufferedReader;
 import java.io.IOException;
 import java.io.InputStreamReader;
-import java.util.ArrayList;
-import java.util.LinkedList;
-import java.util.Queue;
-import java.util.StringTokenizer;
+import java.util.*;
 
 public class Q56 {
     public static void main(String[] args) throws IOException {
@@ -14,9 +11,9 @@ public class Q56 {
         int E = Integer.parseInt(st.nextToken());
         int K = Integer.parseInt(br.readLine());
 
-        ArrayList<Node56>[] A = new ArrayList[V+1];
+        ArrayList<Edge56>[] A = new ArrayList[V+1];
         for(int i = 1; i < V+1; i++){
-            A[i] = new ArrayList<Node56>();
+            A[i] = new ArrayList<Edge56>();
         }
 
         for(int i = 0; i < E; i++){
@@ -25,7 +22,7 @@ public class Q56 {
             int endNode = Integer.parseInt(st.nextToken());
             int value = Integer.parseInt(st.nextToken());
 
-            A[startNode].add(new Node56(endNode, value));
+            A[startNode].add(new Edge56(endNode, value));
         }
 
         int[] distance = new int[V+1];
@@ -39,18 +36,24 @@ public class Q56 {
             visited[i] = false;
         }
 
-        Queue<Integer> queue = new LinkedList<>();
-        queue.add(K);
+        PriorityQueue<Edge56> queue = new PriorityQueue<Edge56>();
+        queue.add(new Edge56(K,0));
         while (!queue.isEmpty()) {
-            int now = queue.poll();
-            visited[now] = true;
-            for(int i = 0; i < A[now].size(); i++){
-                if(distance[A[now].get(i).targetNode] > distance[now] + A[now].get(i).value){
-                    distance[A[now].get(i).targetNode] = distance[now] + A[now].get(i).value;
-                    if(!visited[A[now].get(i).targetNode]){
-                        queue.add(A[now].get(i).targetNode);
-                        visited[A[now].get(i).targetNode] = true;
-                    }
+            Edge56 now = queue.poll();
+            int now_Node = now.targetNode;
+
+            if(visited[now_Node])
+                continue;
+            visited[now_Node] = true;
+
+            for(int i = 0; i < A[now_Node].size(); i++){
+                Edge56 tmp = A[now_Node].get(i);
+                int next_Node = tmp.targetNode;
+                int value = tmp.value;
+
+                if(distance[next_Node] > distance[now_Node] + value){
+                    distance[next_Node] = distance[now_Node] + value;
+                    queue.add(new Edge56(next_Node, distance[next_Node]));
                 }
             }
         }
@@ -63,11 +66,16 @@ public class Q56 {
         }
     }
 }
-class Node56{
+class Edge56 implements Comparable<Edge56>{
     int targetNode;
     int value;
-    Node56(int targetNode, int value){
+    Edge56(int targetNode, int value){
         this.targetNode = targetNode;
         this.value = value;
+    }
+
+    @Override
+    public int compareTo(Edge56 o) {
+        return this.value - o.value;
     }
 }
