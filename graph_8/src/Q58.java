@@ -6,7 +6,6 @@ import java.util.PriorityQueue;
 import java.util.StringTokenizer;
 
 public class Q58 {
-    static final int INF = 100000000;
     public static void main(String[] args) throws IOException {
         BufferedReader br = new BufferedReader(new InputStreamReader(System.in));
         StringTokenizer st = new StringTokenizer(br.readLine());
