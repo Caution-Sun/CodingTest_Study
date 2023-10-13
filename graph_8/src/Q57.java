@@ -60,6 +60,8 @@ public class Q57 {
         }
 
         System.out.println(distance[endNode]);
+
+        br.close();
     }
 }
 

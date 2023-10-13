@@ -50,5 +50,7 @@ public class Q54 {
         for(int i = 1; i < N+1; i++){
             System.out.println(result[i] + selfBuild[i]);
         }
+
+        br.close();
     }
 }

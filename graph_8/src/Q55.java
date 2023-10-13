@@ -71,6 +71,8 @@ public class Q55 {
 
         System.out.println(result[endNode]);
         System.out.println(resultCount);
+
+        br.close();
     }
 }
 class dNode{

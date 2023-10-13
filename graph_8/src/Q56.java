@@ -64,6 +64,8 @@ public class Q56 {
             else
                 System.out.println(distance[i]);
         }
+
+        br.close();
     }
 }
 class Edge56 implements Comparable<Edge56>{
